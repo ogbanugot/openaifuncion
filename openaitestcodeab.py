@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-import openai
+from openai import OpenAI
 from openai import OpenAIError
 import os
 from dotenv import load_dotenv
@@ -8,9 +8,10 @@ import time
 load_dotenv()
 
 # Replace with your actual OpenAI API key
-api_key = os.getenv("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")
-client = openai.Client(api_key=api_key)
-
+api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(
+    api_key=os.environ.get("OPENAI_API_KEY"),
+)
 app = Flask(__name__)
 
 # Define function descriptions for banking operations
@@ -48,4 +49,4 @@ def handle_banking_request():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5009)
